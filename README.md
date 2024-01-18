@@ -1,6 +1,3 @@
-Certainly! Below is the Markdown code for your School Information Management System (SIMS) documentation:
-
-```markdown
 # School Information Management System (SIMS)
 
 ---
@@ -67,4 +64,3 @@ For any questions or technical support, please visit our [website](#) or contact
 - Feel free to add screenshots or visuals to make the readme more engaging.
 - Consider providing links to your website and support resources.
 - Keep the readme updated as your SIMS evolves.
-```
