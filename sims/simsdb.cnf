@@ -1,0 +1,6 @@
+# my.cnf
+[client]
+database = sims
+user = admin
+password = mesacot
+default-character-set = utf8
