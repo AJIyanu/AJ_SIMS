@@ -86,6 +86,11 @@ class Score(models.Model):
                 if "mark obtainable" not in check[0]:
                     raise ValidationError("mark obtainable not present")
 
+    def save(self, *args, **kwargs):
+        """validate and save"""
+        self.clean()
+        self.save(*args, **kwargs)
+
     def setScore(self, score, mkobt, mkobtnbl):
         """sets mark for student"""
         score_set = {"ass": self.assignment, "test": self.CA_Test, "exam": self.exams}
