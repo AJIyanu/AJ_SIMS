@@ -1,3 +1,9 @@
 from django.contrib import admin
+"""adds models to admin frontend"""
 
-# Register your models here.
+from .models import Attendance, Student, CourseReg, Score
+
+admin.site.register(Attendance)
+admin.site.register(Student)
+admin.site.register(CourseReg)
+admin.site.register(Score)
