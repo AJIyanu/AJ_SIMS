@@ -2,14 +2,16 @@
 """
 Contains the model for student registration and attendance
 """
-from typing import Iterable
 import uuid
 import json
-from datetime import date
+import sys
+from django.utils import timezone
 from django.db import models
 from django.core.exceptions import ValidationError
 
-from ..lecturers.models import (
+sys.path.append("../")
+
+from lecturers.models import (
     Score as TeacherScore,
     Attendance as TeacherAttendance,
     Subject as TeacherSubject,
@@ -24,7 +26,7 @@ class Student(models.Model):
     middlename = models.CharField(max_length=15)
     sex_choices = [('Male', 'Male'), ('Female', 'Female')]
     sex = models.CharField(max_length=6, choices=sex_choices, default='Male')
-    DateofBirth = models.DateTimeField()
+    DateofBirth = models.DateField()
     admission_no = models.CharField(max_length=10, unique=True)
     address = models.TextField()
     parentphone = models.CharField(max_length=15, null=False)
@@ -86,11 +88,6 @@ class Score(models.Model):
                 if "mark obtainable" not in check[0]:
                     raise ValidationError("mark obtainable not present")
 
-    def save(self, *args, **kwargs):
-        """validate and save"""
-        self.clean()
-        self.save(*args, **kwargs)
-
     def setScore(self, score, mkobt, mkobtnbl):
         """sets mark for student"""
         score_set = {"ass": self.assignment, "test": self.CA_Test, "exam": self.exams}
@@ -139,7 +136,7 @@ class Attendance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     attendance = models.ForeignKey(TeacherAttendance, on_delete=models.CASCADE, null=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    date = models.DateField(null=False, default=date.today(), editable=False)
+    date = models.DateField(default=timezone.now)
 
     def __str__(self) -> str:
         return f"{self.student.surname} {self.student.firstname} is present on {self.date.strftime('%d/%m/%Y')}"
@@ -154,10 +151,10 @@ class Grade(models.Model):
     """total grade of a student"""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    student = models.ForeignKey(Student, on_delete=False, null=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     # classgrp - this will be imported from schooladministration
     # session - this will be imported from schooladministration
-    gradePercent = models.FloatField(editable=False default=0)
+    gradePercent = models.FloatField(editable=False, default=0)
     gradeCGPA = models.FloatField(editable=False, default=1)
     gradeAlpha = models.CharField(max_length=2, editable=False, default="F")
     teacherRemarks = models.TextField()

@@ -1,14 +1,14 @@
 """contains models for lecturers and teachers"""
 
 from uuid import uuid4
-from datetime import date
 from django.db import models
+from django.utils import timezone
 
 
 class Teacher(models.Model):
     """model class for teacher"""
 
-
+    app_label = "lecturer"
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     surname = models.CharField(max_length=15, null=False)
     firstname = models.CharField(max_length=15, null=False)
@@ -31,13 +31,13 @@ class Subject(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=False)
 
 
-class Attendance(models.Model)
+class Attendance(models.Model):
     """model class for teacher's attendance"""
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=False)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=False)
-    date = models.DateField(default=date.today())
+    date = models.DateField(default=timezone.now, null=False)
 
 
 class Score(models.Model):
@@ -46,7 +46,7 @@ class Score(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=False)
     # classgrp
-    subject = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=False)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=False)
     assignment = models.IntegerField(default=10)
     CA_Test = models.IntegerField(default=20)
     Exam = models.IntegerField(default=60)
