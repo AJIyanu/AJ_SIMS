@@ -25,6 +25,8 @@ class Subject(models.Model):
     """models class for subject"""
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    # class = refernce to class
+    # subject = reference to what school offer
     name = models.CharField(max_length=20, null=False)
     code = models.CharField(max_length=10)
     unit = models.IntegerField(default=1)
@@ -45,7 +47,7 @@ class Score(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=False)
-    # classgrp
+    # class = reference to class
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=False)
     assignment = models.IntegerField(default=10)
     CA_Test = models.IntegerField(default=20)
