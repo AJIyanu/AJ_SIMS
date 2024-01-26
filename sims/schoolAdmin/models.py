@@ -6,6 +6,7 @@ from datetime import date
 from django.db import models
 
 
+
 class Organogram(models.Model):
     """contains the oreder and hirrachy of staffs"""
 
@@ -33,10 +34,11 @@ class Departments(models.Model):
 
 
 class Classes(models.Model):
+    """defines class models for classes offer by the school"""
+
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=20)
     size = models.IntegerField()
-    # teacher = class teacher
     createda_at = models.DateField(default=date.today, editable=False)
 
     def __str__(self) -> str:
@@ -69,3 +71,16 @@ class Staff(models.Model):
 
     def __str__(self) -> str:
         return f"{self.surname} has been employed as {self.organogram.position}"
+
+class AcademicSession(models.Model):
+    """table to track academic session"""
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    createda_at = models.DateField(default=date.today, editable=False)
+    start_date = models.DateField(default=date.today)
+    end_date = models.DateField(default=date.today)
+    description = models.CharField(max_length=15)
+    remarks = models.TextField()
+
+    def __str__(self) -> str:
+        return f"Starts {self.start_date.strftime('%m/%Y')} and ends {self.end_date.strftime('%m/%Y')}"

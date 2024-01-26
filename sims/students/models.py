@@ -16,6 +16,7 @@ from lecturers.models import (
     Attendance as TeacherAttendance,
     Subject as TeacherSubject,
     )
+from schoolAdmin.models import Classes, AcademicSession
 
 class Student(models.Model):
     """table to collect student information"""
@@ -54,11 +55,28 @@ class Student(models.Model):
         self.admission_no = number
         self.save()
 
+
+class SubjectReg(models.Model):
+    """table to register course for the student"""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
+    session = models.ForeignKey(AcademicSession, on_delete=models.CASCADE)
+    subject = models.ForeignKey(TeacherSubject, on_delete=models.CASCADE, null=False)
+    classes = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
+    course_code = models.CharField(max_length=10)
+    unit = models.IntegerField(default=1)
+
+    def __str__(self) -> str:
+        return f"{self.subject.name} has been registered by {self.student.surname} for {self.session} session"
+
+
 class Score(models.Model):
     """creates a score record for the student"""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
+    subject = models.ForeignKey(SubjectReg, on_delete=models.CASCADE)
     score = models.ForeignKey(TeacherScore, on_delete=models.CASCADE, null=False)
     assignment = models.TextField(default=json.dumps([]), editable=False)
     CA_Test = models.TextField(default=json.dumps([]), editable=False)
@@ -66,6 +84,7 @@ class Score(models.Model):
     attendance = models.FloatField(default=0)
     total_score = models.FloatField(default=0, editable=False)
     point = models.FloatField(default=1, editable=False)
+    session = models.ForeignKey(AcademicSession, on_delete=models.SET_NULL, null=True)
 
     def __str__(self) -> str:
         return f"{self.student.surname} has scored {self.total_score} of 100!"
@@ -118,19 +137,6 @@ class Score(models.Model):
             return self.total_score
         return score_set.get(score)
 
-class SubjectReg(models.Model):
-    """table to register course for the student"""
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    session = models.CharField(max_length=15)
-    subject = models.ForeignKey(TeacherSubject, on_delete=models.CASCADE, null=False)
-    course_code = models.CharField(max_length=10)
-    unit = models.IntegerField(default=1)
-
-    def __str__(self) -> str:
-        return f"{self.subject.name} has been registered by {self.student.surname} for {self.session} session"
-
 class Attendance(models.Model):
     """marks attendance for student"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -152,8 +158,8 @@ class Grade(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    # classgrp - this will be imported from schooladministration
-    # session - this will be imported from schooladministration
+    classes = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
+    session = models.ForeignKey(AcademicSession, on_delete=models.CASCADE)
     gradePercent = models.FloatField(editable=False, default=0)
     gradeCGPA = models.FloatField(editable=False, default=1)
     gradeAlpha = models.CharField(max_length=2, editable=False, default="F")
