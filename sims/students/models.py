@@ -16,21 +16,41 @@ from lecturers.models import (
     Attendance as TeacherAttendance,
     Subject as TeacherSubject,
     )
-from schoolAdmin.models import Classes, AcademicSession
+from schoolAdmin.models import Classes, AcademicSession, Term
+
+
+class Guardian(models.Model):
+    """creates a model for students parent"""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=10)
+    surname = models.CharField(max_length=15, null=False)
+    firstname = models.CharField(max_length=15, null=False)
+    middlename = models.CharField(max_length=15, null=True, blank=True)
+    sex_choices = [('Male', 'Male'), ('Female', 'Female')]
+    sex = models.CharField(max_length=6, choices=sex_choices, default='Male')
+    address = models.TextField()
+    phone = models.CharField(max_length=15, null=False)
+
+    def __str__(self) -> str:
+        return f" welcome {self.title} {self.surname}"
+
 
 class Student(models.Model):
     """table to collect student information"""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    passport = models.ImageField(null=True, blank=True)
+    guardian = models.ManyToManyField(Guardian, through="ParentStudent")
     surname = models.CharField(max_length=15, null=False)
     firstname = models.CharField(max_length=15, null=False)
-    middlename = models.CharField(max_length=15)
+    middlename = models.CharField(max_length=15, null=True, blank=True)
     sex_choices = [('Male', 'Male'), ('Female', 'Female')]
     sex = models.CharField(max_length=6, choices=sex_choices, default='Male')
     DateofBirth = models.DateField()
     admission_no = models.CharField(max_length=10, unique=True)
     address = models.TextField()
-    parentphone = models.CharField(max_length=15, null=False)
+    phone = models.CharField(max_length=15, null=True, blank=True)
     admissionOptions = [('Admitted', 'Admitted'),
                         ('Graduated', 'Graduated'),
                         ('Prospective', 'Prospective')
@@ -40,20 +60,24 @@ class Student(models.Model):
     def __str__(self) -> str:
         return f"{self.surname} {self.firstname} is registered with admission number: {self.admission_no}"
 
-    def clean(self) -> None:
-        """validates phone number
-        """
-        try:
-            int(self.parentphone)
-        except ValueError:
-            raise ValidationError("Enter a Valid Phone Number")
-        if not self.parentphone.startswith('0'):
-            raise ValidationError("Enter a Valid Phone Number")
 
     def save_addmission_no(self, number: str):
         """saves students admission number"""
         self.admission_no = number
         self.save()
+
+
+class ParentStudent(models.Model):
+    """a join table for relationship between Guardian and Students"""
+
+    guardians = models.ForeignKey(Guardian, on_delete=models.CASCADE)
+    students = models.ForeignKey(Student, on_delete=models.CASCADE)
+    relationship = models.CharField(max_length=15)
+    is_master = models.BooleanField(default=False)
+    is_sponsor = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f"{self.guardians.title} {self.guardians.surname} is a guardian to {self.students.surname} {self.students.firstname}"
 
 
 class SubjectReg(models.Model):
@@ -62,13 +86,13 @@ class SubjectReg(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     session = models.ForeignKey(AcademicSession, on_delete=models.CASCADE)
-    subject = models.ForeignKey(TeacherSubject, on_delete=models.CASCADE, null=False)
+    subject = models.ManyToManyField(TeacherSubject, related_name="students")
     classes = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
-    course_code = models.CharField(max_length=10)
-    unit = models.IntegerField(default=1)
 
     def __str__(self) -> str:
-        return f"{self.subject.name} has been registered by {self.student.surname} for {self.session} session"
+        return f"\
+            {'. '.join(obj.name for obj in self.subject.prefetch_related('students'))} \
+                has been registered by {self.student.surname} for {self.session.description} session"
 
 
 class Score(models.Model):
@@ -76,11 +100,10 @@ class Score(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    subject = models.ForeignKey(SubjectReg, on_delete=models.CASCADE)
     score = models.ForeignKey(TeacherScore, on_delete=models.CASCADE, null=False)
-    assignment = models.TextField(default=json.dumps([]), editable=False)
-    CA_Test = models.TextField(default=json.dumps([]), editable=False)
-    exams = models.TextField(default=json.dumps([]), editable=False)
+    assignment = models.JSONField(default=list, editable=False)
+    CA_Test = models.JSONField(default=list, editable=False)
+    exams = models.JSONField(default=list, editable=False)
     attendance = models.FloatField(default=0)
     total_score = models.FloatField(default=0, editable=False)
     point = models.FloatField(default=1, editable=False)
@@ -88,24 +111,6 @@ class Score(models.Model):
 
     def __str__(self) -> str:
         return f"{self.student.surname} has scored {self.total_score} of 100!"
-
-    def clean(self) -> None:
-        """validates assignment
-           validates CA_Test
-           validates Exams
-        """
-        try:
-            ass = json.loads(self.assignment)
-            test = json.loads(self.CA_Test)
-            exam = json.loads(self.exams)
-        except json.JSONDecodeError:
-            raise ValidationError("Not a valid Input")
-        for check in [ass, test, exam]:
-            if len(check) > 0:
-                if "mark obtained" not in check[0]:
-                    raise ValidationError("No marks obtained")
-                if "mark obtainable" not in check[0]:
-                    raise ValidationError("mark obtainable not present")
 
     def setScore(self, score, mkobt, mkobtnbl):
         """sets mark for student"""
@@ -165,6 +170,8 @@ class Grade(models.Model):
     gradeAlpha = models.CharField(max_length=2, editable=False, default="F")
     teacherRemarks = models.TextField()
     principalRemarks = models.TextField()
+    is_available = models.BooleanField(default=False)
+    term = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True)
 
     def __str__(self) -> str:
         return f"{self.student.surname} overall grade is {self.gradePercent}% ({self.gradeAlpha})"
