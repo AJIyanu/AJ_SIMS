@@ -8,6 +8,7 @@ import sys
 from django.utils import timezone
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User, Permission
 
 sys.path.append("../")
 
@@ -23,6 +24,8 @@ class Guardian(models.Model):
     """creates a model for students parent"""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    permission = models.ManyToManyField(Permission, related_name="guardian_user")
+    user_login = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=10)
     surname = models.CharField(max_length=15, null=False)
     firstname = models.CharField(max_length=15, null=False)

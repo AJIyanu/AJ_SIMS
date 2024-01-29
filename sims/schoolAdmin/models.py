@@ -4,6 +4,7 @@
 from uuid import uuid4
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import User, Permission
 
 
 
@@ -11,6 +12,7 @@ class Organogram(models.Model):
     """contains the oreder and hirrachy of staffs"""
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    permission = models.ManyToManyField(Permission, related_name="organogram")
     position = models.CharField(max_length=20, unique=True)
     level = models.IntegerField()
     description = models.TextField()
@@ -59,6 +61,8 @@ class Staff(models.Model):
     """Non teaching staffs for admin system"""
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    permission = models.ManyToManyField(Permission, related_name="staff_user")
+    user_login = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     createda_at = models.DateField(default=timezone.now, editable=False)
     organogram = models.ManyToManyField(Organogram, related_name="staff_position")
     surname = models.CharField(max_length=15, null=False)
