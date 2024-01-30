@@ -1,0 +1,16 @@
+.container {
+    background-color: rgb(223, 242, 242);
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+#logo {
+    margin-right: auto;
+}
+#menu {
+    margin-left: auto;
+}
