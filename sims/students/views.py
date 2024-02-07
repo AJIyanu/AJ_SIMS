@@ -5,4 +5,4 @@ from django.shortcuts import HttpResponse, render
 def index(request):
     """returns a simple test view of index"""
     # return HttpResponse("This is mmy first index page in django")
-    return render(request, "check.html")
+    return render(request, "index.html")

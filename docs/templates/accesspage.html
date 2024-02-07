@@ -5,12 +5,82 @@
     <title>AJ_SIMS Secure Pass</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- css import -->
+    <link rel="stylesheet" href="../static/css/accessstyles.css">
 
     <link rel="shortcut icon" href="favicon_light.ico" type="image/x-icon">
 </head>
 <body>
+    <div class="bgblend">
+        <div class="accesscontainer">
+            <div class="leftview">
+                <img src="../static/images/securepass.png" alt="securepass" width="100%">
+                <div class="formlabel">
+                    <h2>Parent SecurePass</h2>
+                    <div style="height: 1pt; margin-left: 2.5%; margin-top: 10pt; width: 95%; background-color: aliceblue;"></div>
+                    <p style="margin-left: 10pt; font-family: 'Tahoma';">We want to make sure your children's data safe</p>
+                </div>
+                <div class="switch">
+                    <a class="switch-link link-info text-decoration-none" href="#">New Parent?</a>
+                </div>
+            </div>
+        <!-- </div> -->
+            <div class="linedemac"></div>
+            <div class="formview active">
+                <form action="" method="post">
+                    <div class="message"></div>
+                    <div class="input">
+                        <label for="username"><i class="bi bi-person-circle" style="font-size: 2rem;"></i></label>
+                        <input type="text" name="username" id="username" placeholder="Username">
+                    </div>
+                    <div class="input">
+                        <label for="password" class="rounded-start-pill"><i class="bi bi-lock-fill" style="font-size: 2rem;"></i></label>
+                        <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" role="switch" id="remember me" checked>
+                        <label class="form-label" for="remember me">Remember me</label>
+                    </div>
+                    <div class="others">
+                        <br><a href="#" class="link-danger text-decoration-none">Forgot Password</a>
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="btn btn-primary">Secure Pass</button>
+                    </div>
+                </form>
+            </div>
 
+            <div class="formview wide">
+                <form action="" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="surname" placeholder="name@example.com">
+                        <label for="surname">Surname</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="firstname" placeholder="name@example.com">
+                        <label for="floatingInput">Firstname</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="vpassword" placeholder="Confirm Password">
+                        <label for="vpassword">Confirm Password</label>
+                    </div>
+                    <div class="button">
+                        <button class="btn btn-primary mb-3">Get Started</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="../static/js/accesspage.js"></script>
 </html>

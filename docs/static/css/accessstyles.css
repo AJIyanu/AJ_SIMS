@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(189, 232, 217);
+    background-image: url(../images/securepass2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-blend-mode: multiply; */
+}
+
+.bgblend {
+    padding-right: 7%;
+    background-color: rgba(19, 19, 18, 0.612);
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.accesscontainer {
+    padding: 0;
+    height: 70vh;
+    /* width: 450pt; */
+    /* background-color: rgba(250, 235, 215, 0.894); */
+    border-radius: 5px;
+    box-shadow: 10 10 10 10 black;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* position: relative; */
+    overflow: hidden;
+    /* gap: 20pt; */
+    transition: 5s;
+}
+
+.leftview {
+    position: relative;
+    margin: 0;
+    width: 200pt;
+    background-color: rgba(4, 3, 3, 0.826);
+    /* background-image: url(../images/securepass.png); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    /* background-position: bottom; */
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
+
+.leftview h2 {
+    font-size: 3rem;
+    line-height: 30pt;
+    margin-left: 12pt;
+    margin-top: 50pt;
+}
+
+.leftview img {
+    position: absolute;
+    top: -150pt;
+}
+
+.linedemac {
+    width: 1.3pt;
+    height: 100%;
+    background-color: red;
+    border-radius: 10pt;
+}
+
+.input input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1.3px solid black;
+    margin-top: 10pt;
+    width: 80%;
+}
+
+.input {
+    margin-bottom: 15pt;
+    margin-top: 10pt;
+}
+
+.others {
+    display: flexbox;
+    /* margin-top: 10pt; */
+}
+
+.button {
+    margin-top: 10pt;
+    display: flex;
+    justify-content: center;
+}
+
+.formlabel {
+    /* transition: 0.5s; */
+    transform: translateY(-10pt);
+}
+
+.formview {
+    display: none;
+    padding: 30pt;
+    padding-top: 85pt;
+    background-color: rgba(250, 235, 215, 0.894);
+    height: 100%;
+    border-top-right-radius: 5pt;
+    border-bottom-right-radius: 5pt;
+    transition: width 0.5s ease-in-out;
+}
+
+.active {
+    display: block;
+    /* transition: 9s; */
+}
+
+.wide {
+    width: 300pt;
+    padding: 20pt;
+    /* transition: 10s; */
+}
+
+.switch {
+    position: absolute;
+    bottom: 50px;
+    /* transition: 10ms; */
+}
