@@ -191,7 +191,7 @@ export const TransactionsTable = () => {
   const totalTransactions = transactions.length;
 
   const TableRow = (props) => {
-    const { invoiceNumber, subscription, price, issueDate, dueDate, status } = props;
+    const { Subject, Code, Attendance, Assignment, CA_Test, Exam, Total, Position, status } = props;
     const statusVariant = status === "Paid" ? "success"
       : status === "Due" ? "warning"
         : status === "Canceled" ? "danger" : "primary";
@@ -200,35 +200,45 @@ export const TransactionsTable = () => {
       <tr>
         <td>
           <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
-            {invoiceNumber}
+            {Subject}
           </Card.Link>
         </td>
         <td>
           <span className="fw-normal">
-            {subscription}
+            {Code}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            {issueDate}
+            {Attendance}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            {dueDate}
+            {parseFloat(Assignment).toFixed(1)}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            ${parseFloat(price).toFixed(2)}
+            {parseFloat(CA_Test).toFixed(1)}
           </span>
         </td>
         <td>
           <span className={`fw-normal text-${statusVariant}`}>
-            {status}
+            {parseFloat(Exam).toFixed(1)}
           </span>
         </td>
         <td>
+          <span className="fw-normal">
+            {parseInt(Total)}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {Position}
+          </span>
+        </td>
+        {/* <td>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
               <span className="icon icon-sm">
@@ -247,7 +257,7 @@ export const TransactionsTable = () => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </td>
+        </td> */}
       </tr>
     );
   };
@@ -258,20 +268,21 @@ export const TransactionsTable = () => {
         <Table hover className="user-table align-items-center">
           <thead>
             <tr>
-              <th className="border-bottom">#</th>
-              <th className="border-bottom">Bill For</th>
-              <th className="border-bottom">Issue Date</th>
-              <th className="border-bottom">Due Date</th>
+              <th className="border-bottom">Subject</th>
+              <th className="border-bottom">Code</th>
+              <th className="border-bottom">Attendance</th>
+              <th className="border-bottom">Assignments</th>
+              <th className="border-bottom">CA Test</th>
+              <th className="border-bottom">Exams</th>
               <th className="border-bottom">Total</th>
-              <th className="border-bottom">Status</th>
-              <th className="border-bottom">Action</th>
+              <th className="border-bottom">Position</th>
             </tr>
           </thead>
           <tbody>
             {transactions.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
           </tbody>
         </Table>
-        <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
+        {/* <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
           <Nav>
             <Pagination className="mb-2 mb-lg-0">
               <Pagination.Prev>
@@ -290,7 +301,7 @@ export const TransactionsTable = () => {
           <small className="fw-bold">
             Showing <b>{totalTransactions}</b> out of <b>25</b> entries
           </small>
-        </Card.Footer>
+        </Card.Footer> */}
       </Card.Body>
     </Card>
   );

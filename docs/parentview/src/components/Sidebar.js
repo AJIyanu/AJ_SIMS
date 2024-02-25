@@ -4,7 +4,7 @@ import SimpleBar from 'simplebar-react';
 import { useLocation } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faBoxOpen, faChartPie, faCog, faFileAlt, faHandHoldingUsd, faSignOutAlt, faTable, faTimes, faCalendarAlt, faMapPin, faInbox, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faChartPie, faCog, faSignOutAlt, faTable, faTimes, faCalendarAlt, faInbox, faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { Nav, Badge, Image, Button, Dropdown, Accordion, Navbar } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -97,20 +97,20 @@ export default (props = {}) => {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="Volt React" link={Routes.Presentation.path} image={ReactHero} />
+              <NavItem title="AJ SIMS" link={Routes.Presentation.path} image={ReactHero} />
 
-              <NavItem title="Overview" link={Routes.DashboardOverview.path} icon={faChartPie} />
-              <NavItem external title="Messages" link="https://demo.themesberg.com/volt-pro-react/#/messages" target="_blank" badgeText="Pro" icon={faInbox} />
-              <NavItem title="Transactions" icon={faHandHoldingUsd} link={Routes.Transactions.path} />
+              <NavItem title="School Activities" link={Routes.DashboardOverview.path} icon={faNewspaper} />
+              <NavItem title="Messages" link="https://demo.themesberg.com/volt-pro-react/#/messages" target="_blank" badgeText="1" icon={faInbox} />
+              <NavItem title="Performance" icon={faChartPie} link={Routes.Transactions.path} />
+              <NavItem title="Calendar" link="https://demo.themesberg.com/volt-pro-react/#/calendar" target="_blank" badgeText="1 Event" icon={faCalendarAlt} />
+              <NavItem title="Report Cards" link={Routes.Transactions.path} badgeText="New" icon={faTable} />
               <NavItem title="Settings" icon={faCog} link={Routes.Settings.path} />
-              <NavItem external title="Calendar" link="https://demo.themesberg.com/volt-pro-react/#/calendar" target="_blank" badgeText="Pro" icon={faCalendarAlt} />
-              <NavItem external title="Map" link="https://demo.themesberg.com/volt-pro-react/#/map" target="_blank" badgeText="Pro" icon={faMapPin} />
 
-              <CollapsableNavItem eventKey="tables/" title="Tables" icon={faTable}>
+              {/* <CollapsableNavItem eventKey="tables/" title="Tables" icon={faTable}>
                 <NavItem title="Bootstrap Table" link={Routes.BootstrapTables.path} />
-              </CollapsableNavItem>
+              </CollapsableNavItem> */}
 
-              <CollapsableNavItem eventKey="examples/" title="Page Examples" icon={faFileAlt}>
+              {/* <CollapsableNavItem eventKey="examples/" title="Page Examples" icon={faFileAlt}>
                 <NavItem title="Sign In" link={Routes.Signin.path} />
                 <NavItem title="Sign Up" link={Routes.Signup.path} />
                 <NavItem title="Forgot password" link={Routes.ForgotPassword.path} />
@@ -118,22 +118,22 @@ export default (props = {}) => {
                 <NavItem title="Lock" link={Routes.Lock.path} />
                 <NavItem title="404 Not Found" link={Routes.NotFound.path} />
                 <NavItem title="500 Server Error" link={Routes.ServerError.path} />
-              </CollapsableNavItem>
+              </CollapsableNavItem> */}
 
-              <NavItem external title="Plugins" link="https://demo.themesberg.com/volt-pro-react/#/plugins/datatable" target="_blank" badgeText="Pro" icon={faChartPie} />
+              {/* <NavItem external title="Plugins" link="https://demo.themesberg.com/volt-pro-react/#/plugins/datatable" target="_blank" badgeText="Pro" icon={faChartPie} /> */}
 
               <Dropdown.Divider className="my-3 border-indigo" />
 
-              <CollapsableNavItem eventKey="documentation/" title="Getting Started" icon={faBook}>
-                <NavItem title="Overview" link={Routes.DocsOverview.path} />
-                <NavItem title="Download" link={Routes.DocsDownload.path} />
-                <NavItem title="Quick Start" link={Routes.DocsQuickStart.path} />
-                <NavItem title="License" link={Routes.DocsLicense.path} />
-                <NavItem title="Folder Structure" link={Routes.DocsFolderStructure.path} />
-                <NavItem title="Build Tools" link={Routes.DocsBuild.path} />
-                <NavItem title="Changelog" link={Routes.DocsChangelog.path} />
+              <CollapsableNavItem eventKey="documentation/" title="My Children" icon={faBook}>
+                <NavItem title="Enroll New Child" link={Routes.DocsOverview.path} />
+                <NavItem title="Parent New Child" link={Routes.DocsDownload.path} />
+                <NavItem title="Permit Guadian" link={Routes.DocsQuickStart.path} />
+                <NavItem title="Request Permission" link={Routes.DocsLicense.path} />
+                <NavItem title="Complaint/Feedback" link={Routes.DocsFolderStructure.path} />
+                {/* <NavItem title="Build Tools" link={Routes.DocsBuild.path} /> */}
+                {/* <NavItem title="Changelog" link={Routes.DocsChangelog.path} /> */}
               </CollapsableNavItem>
-              <CollapsableNavItem eventKey="components/" title="Components" icon={faBoxOpen}>
+              {/* <CollapsableNavItem eventKey="components/" title="Components" icon={faBoxOpen}>
                 <NavItem title="Accordion" link={Routes.Accordions.path} />
                 <NavItem title="Alerts" link={Routes.Alerts.path} />
                 <NavItem title="Badges" link={Routes.Badges.path} />
@@ -151,9 +151,9 @@ export default (props = {}) => {
                 <NavItem title="Tabs" link={Routes.Tabs.path} />
                 <NavItem title="Toasts" link={Routes.Toasts.path} />
                 <NavItem title="Tooltips" link={Routes.Tooltips.path} />
-              </CollapsableNavItem>
-              <NavItem external title="Themesberg" link="https://themesberg.com" target="_blank" image={ThemesbergLogo} />
-              <Button as={Link} to={Routes.Upgrade.path} variant="secondary" className="upgrade-to-pro"><FontAwesomeIcon icon={faRocket} className="me-1" /> Upgrade to Pro</Button>
+              </CollapsableNavItem> */}
+              {/* <NavItem external title="Themesberg" link="https://themesberg.com" target="_blank" image={ThemesbergLogo} /> */}
+              {/* <Button as={Link} to={Routes.Upgrade.path} variant="secondary" className="upgrade-to-pro"><FontAwesomeIcon icon={faRocket} className="me-1" /> Upgrade to Pro</Button> */}
             </Nav>
           </div>
         </SimpleBar>

@@ -1,7 +1,7 @@
 
 import moment from "moment-timezone";
 
-export default [
+const table =  [
     {
         "invoiceNumber": 300500,
         "status": "Paid",
@@ -81,5 +81,78 @@ export default [
         "price": "799,00",
         "issueDate": moment().subtract(6, "days").format("DD MMM YYYY"),
         "dueDate": moment().subtract(6, "days").add(1, "month").format("DD MMM YYYY")
+    }
+]
+
+export default [
+    {
+        "Subject": "Mathematics",
+        "Code": "MTH102",
+        "Attendance": "100%",
+        "Assignment": 8,
+        "CA_Test": 19,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
+    },
+    {
+        "Subject": "English",
+        "Code": "ENG102",
+        "Attendance": "100%",
+        "Assignment": 6,
+        "CA_Test": 14,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
+    },
+    {
+        "Subject": "Biology",
+        "Code": "BIO102",
+        "Attendance": "100%",
+        "Assignment": 8,
+        "CA_Test": 19,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
+    },
+    {
+        "Subject": "Physics",
+        "Code": "PHY102",
+        "Attendance": "100%",
+        "Assignment": 8,
+        "CA_Test": 19,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
+    },
+    {
+        "Subject": "Chemistry",
+        "Code": "CHM102",
+        "Attendance": "100%",
+        "Assignment": 8,
+        "CA_Test": 19,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
+    },
+    {
+        "Subject": "Yoruba",
+        "Code": "YOR102",
+        "Attendance": "100%",
+        "Assignment": 8,
+        "CA_Test": 19,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
+    },
+    {
+        "Subject": "Geography",
+        "Code": "GEO102",
+        "Attendance": "100%",
+        "Assignment": 8,
+        "CA_Test": 19,
+        "Exam": 50,
+        "Total": 87,
+        "Position": "2nd"
     }
 ]
